@@ -14,6 +14,12 @@
 		B36F92AB1D2F283C005786E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B36F92A91D2F283C005786E5 /* Main.storyboard */; };
 		B36F92AD1D2F283C005786E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B36F92AC1D2F283C005786E5 /* Assets.xcassets */; };
 		B36F92B01D2F283C005786E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B36F92AE1D2F283C005786E5 /* LaunchScreen.storyboard */; };
+		B3C26DB41D2F29BC0043CF81 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C26DB11D2F29BC0043CF81 /* JSTileMap.m */; };
+		B3C26DB51D2F29BC0043CF81 /* LFCGzipUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C26DB31D2F29BC0043CF81 /* LFCGzipUtility.m */; };
+		B3C26DB71D2F2A770043CF81 /* level1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B3C26DB61D2F2A770043CF81 /* level1.tmx */; };
+		B3C26DB91D2F2B090043CF81 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C26DB81D2F2B090043CF81 /* libz.tbd */; };
+		B3C26DBB1D2F2B510043CF81 /* kenney_16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C26DBA1D2F2B510043CF81 /* kenney_16x16.png */; };
+		B3C26DBD1D2F2E5F0043CF81 /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C26DBC1D2F2E5F0043CF81 /* player.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +32,15 @@
 		B36F92AC1D2F283C005786E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B36F92AF1D2F283C005786E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B36F92B11D2F283C005786E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3C26DAF1D2F29BB0043CF81 /* PlatformIt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlatformIt-Bridging-Header.h"; sourceTree = "<group>"; };
+		B3C26DB01D2F29BC0043CF81 /* JSTileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTileMap.h; sourceTree = "<group>"; };
+		B3C26DB11D2F29BC0043CF81 /* JSTileMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTileMap.m; sourceTree = "<group>"; };
+		B3C26DB21D2F29BC0043CF81 /* LFCGzipUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFCGzipUtility.h; sourceTree = "<group>"; };
+		B3C26DB31D2F29BC0043CF81 /* LFCGzipUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFCGzipUtility.m; sourceTree = "<group>"; };
+		B3C26DB61D2F2A770043CF81 /* level1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level1.tmx; sourceTree = "<group>"; };
+		B3C26DB81D2F2B090043CF81 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		B3C26DBA1D2F2B510043CF81 /* kenney_16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kenney_16x16.png; sourceTree = "<group>"; };
+		B3C26DBC1D2F2E5F0043CF81 /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3C26DB91D2F2B090043CF81 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +58,7 @@
 		B36F92951D2F283B005786E5 = {
 			isa = PBXGroup;
 			children = (
+				B3C26DB81D2F2B090043CF81 /* libz.tbd */,
 				B36F92A01D2F283C005786E5 /* PlatformIt */,
 				B36F929F1D2F283B005786E5 /* Products */,
 			);
@@ -58,6 +75,13 @@
 		B36F92A01D2F283C005786E5 /* PlatformIt */ = {
 			isa = PBXGroup;
 			children = (
+				B3C26DBC1D2F2E5F0043CF81 /* player.png */,
+				B3C26DBA1D2F2B510043CF81 /* kenney_16x16.png */,
+				B3C26DB61D2F2A770043CF81 /* level1.tmx */,
+				B3C26DB01D2F29BC0043CF81 /* JSTileMap.h */,
+				B3C26DB11D2F29BC0043CF81 /* JSTileMap.m */,
+				B3C26DB21D2F29BC0043CF81 /* LFCGzipUtility.h */,
+				B3C26DB31D2F29BC0043CF81 /* LFCGzipUtility.m */,
 				B36F92A11D2F283C005786E5 /* AppDelegate.swift */,
 				B36F92A31D2F283C005786E5 /* GameScene.sks */,
 				B36F92A51D2F283C005786E5 /* GameScene.swift */,
@@ -66,6 +90,7 @@
 				B36F92AC1D2F283C005786E5 /* Assets.xcassets */,
 				B36F92AE1D2F283C005786E5 /* LaunchScreen.storyboard */,
 				B36F92B11D2F283C005786E5 /* Info.plist */,
+				B3C26DAF1D2F29BB0043CF81 /* PlatformIt-Bridging-Header.h */,
 			);
 			path = PlatformIt;
 			sourceTree = "<group>";
@@ -128,7 +153,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3C26DBD1D2F2E5F0043CF81 /* player.png in Resources */,
+				B3C26DB71D2F2A770043CF81 /* level1.tmx in Resources */,
 				B36F92A41D2F283C005786E5 /* GameScene.sks in Resources */,
+				B3C26DBB1D2F2B510043CF81 /* kenney_16x16.png in Resources */,
 				B36F92B01D2F283C005786E5 /* LaunchScreen.storyboard in Resources */,
 				B36F92AD1D2F283C005786E5 /* Assets.xcassets in Resources */,
 				B36F92AB1D2F283C005786E5 /* Main.storyboard in Resources */,
@@ -143,8 +171,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B36F92A61D2F283C005786E5 /* GameScene.swift in Sources */,
+				B3C26DB51D2F29BC0043CF81 /* LFCGzipUtility.m in Sources */,
 				B36F92A81D2F283C005786E5 /* GameViewController.swift in Sources */,
 				B36F92A21D2F283C005786E5 /* AppDelegate.swift in Sources */,
+				B3C26DB41D2F29BC0043CF81 /* JSTileMap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,10 +287,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = PlatformIt/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.af.PlatformIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PlatformIt/PlatformIt-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -268,10 +301,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = PlatformIt/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.af.PlatformIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PlatformIt/PlatformIt-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -294,6 +329,7 @@
 				B36F92B61D2F283C005786E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
