@@ -34,7 +34,7 @@ class GameScene: SKScene {
         cam.position = CGPoint(x: self.frame.width / 2 , y: self.frame.height / 2)
         
         Player = SKSpriteNode(imageNamed: "player")
-        Player.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+        Player.position = CGPoint(x: self.frame.width / 2, y: 50)
         Player.size = CGSize(width: 30, height: 45)
         
         // SET physics
@@ -53,13 +53,46 @@ class GameScene: SKScene {
         // Physics for ground
         // reference ground object in .tmx file
         let groundGroup : TMXObjectGroup = self.Map.groupNamed("GroundObjects")
+        let coinGroup : TMXObjectGroup = self.Map.groupNamed("Coins")
+        
+        // iterate over coins
+        for i in 0..<coinGroup.objects.count {
+            let coinObject = coinGroup.objects.objectAtIndex(i) as! NSDictionary
+            
+            // coin width and height
+            guard let width = coinObject.objectForKey("width") as? String else { continue }
+            guard let height = coinObject.objectForKey("height") as? String else { continue }
+            
+            // get size of coin
+            let coinSize = CGSize(width: Int(width)!, height: Int(height)!)
+            // create sprite object
+            let coinSprite = SKSpriteNode(imageNamed: "coin")
+            coinSprite.size = coinSize
+            
+            // get position
+            guard let x = coinObject.objectForKey("x") as? Int else { continue }
+            guard let y = coinObject.objectForKey("y") as? Int else { continue }
+            
+            // set coin position
+            coinSprite.position = CGPoint(x: x + Int(coinGroup.positionOffset.x) + Int(width)! / 2, y: y + Int(coinGroup.positionOffset.y) + Int(height)! / 2)
+            
+            // set physics
+            coinSprite.physicsBody = SKPhysicsBody(rectangleOfSize: coinSize)
+            coinSprite.physicsBody?.affectedByGravity = false
+            coinSprite.physicsBody?.categoryBitMask = CollisionNames.Coin
+            coinSprite.physicsBody?.collisionBitMask = CollisionNames.Player
+            coinSprite.physicsBody?.contactTestBitMask = CollisionNames.Player
+            
+            self.addChild(coinSprite)
+            
+        }
+        
         // iterate over the ground objects
         for i in 0..<groundGroup.objects.count {
             let groundObject = groundGroup.objects.objectAtIndex(i) as! NSDictionary
             // get widht and height of object
             guard let width = groundObject.objectForKey("width") as? String else { continue }
-            //let width = groundObject.objectForKey("width") as! String
-            let height = groundObject.objectForKey("height") as! String
+            guard let height = groundObject.objectForKey("height") as? String else { continue }
             
             let wallSize = CGSize(width: Int(width)!, height: Int(height)!)
             
@@ -67,8 +100,8 @@ class GameScene: SKScene {
             let groundSprite = SKSpriteNode(color: UIColor.clearColor(), size: wallSize)
             
             // get the position of the ground object
-            let x = groundObject.objectForKey("x") as! Int
-            let y = groundObject.objectForKey("y") as! Int
+            guard let x = groundObject.objectForKey("x") as? Int else { continue}
+            guard let y = groundObject.objectForKey("y") as? Int else { continue}
             
             // set position
             groundSprite.position = CGPoint(x: x + Int(groundGroup.positionOffset.x) + Int(width)! / 2, y: y + Int(groundGroup.positionOffset.y) + Int(height)! / 2)
