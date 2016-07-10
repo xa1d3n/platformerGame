@@ -14,7 +14,7 @@ struct CollisionNames {
     static let Coin : UInt32 = 0x1 << 4
 }
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let Map = JSTileMap(named: "level1.tmx")
     var Player = SKSpriteNode()
@@ -24,9 +24,13 @@ class GameScene: SKScene {
     
     var cam = SKCameraNode()
     
+    var bankValue = Int()
+    
     override func didMoveToView(view: SKView) {
         Map.position = CGPoint(x: 0, y: 0)
         self.addChild(Map)
+        
+        self.physicsWorld.contactDelegate = self
         
         self.camera = cam
         self.addChild(cam)
@@ -48,6 +52,8 @@ class GameScene: SKScene {
         Player.physicsBody?.affectedByGravity = true
         
         self.addChild(Player)
+        
+        bankValue = 0
         
         
         // Physics for ground
@@ -163,6 +169,23 @@ class GameScene: SKScene {
         // don't go off left screen edge
         if Player.position.x >= self.frame.width / 2 {
             cam.position.x = Player.position.x
+        }
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        
+        if bodyA.node?.physicsBody?.categoryBitMask == CollisionNames.Player && bodyB.node?.physicsBody?.categoryBitMask == CollisionNames.Coin {
+            // remove the coin
+            bodyB.node?.removeFromParent()
+            bankValue += 1
+            print(bankValue)
+        }
+        else if bodyA.node?.physicsBody?.categoryBitMask == CollisionNames.Coin && bodyB.node?.physicsBody?.categoryBitMask == CollisionNames.Player {
+            bodyA.node?.removeFromParent()
+            bankValue += 1
+            print(bankValue)
         }
     }
 }

@@ -16,10 +16,10 @@
 		B36F92B01D2F283C005786E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B36F92AE1D2F283C005786E5 /* LaunchScreen.storyboard */; };
 		B3C26DB41D2F29BC0043CF81 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C26DB11D2F29BC0043CF81 /* JSTileMap.m */; };
 		B3C26DB51D2F29BC0043CF81 /* LFCGzipUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C26DB31D2F29BC0043CF81 /* LFCGzipUtility.m */; };
-		B3C26DB71D2F2A770043CF81 /* level1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B3C26DB61D2F2A770043CF81 /* level1.tmx */; };
 		B3C26DB91D2F2B090043CF81 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C26DB81D2F2B090043CF81 /* libz.tbd */; };
 		B3C26DBB1D2F2B510043CF81 /* kenney_16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C26DBA1D2F2B510043CF81 /* kenney_16x16.png */; };
 		B3C26DBD1D2F2E5F0043CF81 /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C26DBC1D2F2E5F0043CF81 /* player.png */; };
+		B3C26DC31D32C0F30043CF81 /* level1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B3C26DC21D32C0F30043CF81 /* level1.tmx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,10 +37,10 @@
 		B3C26DB11D2F29BC0043CF81 /* JSTileMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTileMap.m; sourceTree = "<group>"; };
 		B3C26DB21D2F29BC0043CF81 /* LFCGzipUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFCGzipUtility.h; sourceTree = "<group>"; };
 		B3C26DB31D2F29BC0043CF81 /* LFCGzipUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFCGzipUtility.m; sourceTree = "<group>"; };
-		B3C26DB61D2F2A770043CF81 /* level1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level1.tmx; sourceTree = "<group>"; };
 		B3C26DB81D2F2B090043CF81 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B3C26DBA1D2F2B510043CF81 /* kenney_16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kenney_16x16.png; sourceTree = "<group>"; };
 		B3C26DBC1D2F2E5F0043CF81 /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
+		B3C26DC21D32C0F30043CF81 /* level1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level1.tmx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,9 +75,9 @@
 		B36F92A01D2F283C005786E5 /* PlatformIt */ = {
 			isa = PBXGroup;
 			children = (
+				B3C26DC21D32C0F30043CF81 /* level1.tmx */,
 				B3C26DBC1D2F2E5F0043CF81 /* player.png */,
 				B3C26DBA1D2F2B510043CF81 /* kenney_16x16.png */,
-				B3C26DB61D2F2A770043CF81 /* level1.tmx */,
 				B3C26DB01D2F29BC0043CF81 /* JSTileMap.h */,
 				B3C26DB11D2F29BC0043CF81 /* JSTileMap.m */,
 				B3C26DB21D2F29BC0043CF81 /* LFCGzipUtility.h */,
@@ -154,9 +154,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3C26DBD1D2F2E5F0043CF81 /* player.png in Resources */,
-				B3C26DB71D2F2A770043CF81 /* level1.tmx in Resources */,
 				B36F92A41D2F283C005786E5 /* GameScene.sks in Resources */,
 				B3C26DBB1D2F2B510043CF81 /* kenney_16x16.png in Resources */,
+				B3C26DC31D32C0F30043CF81 /* level1.tmx in Resources */,
 				B36F92B01D2F283C005786E5 /* LaunchScreen.storyboard in Resources */,
 				B36F92AD1D2F283C005786E5 /* Assets.xcassets in Resources */,
 				B36F92AB1D2F283C005786E5 /* Main.storyboard in Resources */,
