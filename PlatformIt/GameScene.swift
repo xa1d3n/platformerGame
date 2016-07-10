@@ -26,9 +26,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var bankValue = Int()
     
+    // make the characer jump. by moving himp up
+    func jump() {
+        self.Player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 20))
+    }
+    
     override func didMoveToView(view: SKView) {
         Map.position = CGPoint(x: 0, y: 0)
         self.addChild(Map)
+        
+        // add up gesture recognizer to scene. Call jump function
+        let gestureUp = UISwipeGestureRecognizer(target: self, action: #selector(jump))
+        gestureUp.direction = .Up
+        view.addGestureRecognizer(gestureUp)
         
         self.physicsWorld.contactDelegate = self
         
@@ -50,6 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         Player.physicsBody?.collisionBitMask = CollisionNames.Ground | CollisionNames.Coin
         Player.physicsBody?.contactTestBitMask = CollisionNames.Ground | CollisionNames.Coin
         Player.physicsBody?.affectedByGravity = true
+        Player.physicsBody?.allowsRotation = false
         
         self.addChild(Player)
         
