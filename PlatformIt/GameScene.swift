@@ -12,6 +12,7 @@ struct CollisionNames {
     static let Player : UInt32 = 0x1 << 1
     static let Ground : UInt32 = 0x1 << 2
     static let Coin : UInt32 = 0x1 << 4
+    static let Flag : UInt32 = 0x1 << 8
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -26,9 +27,45 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var bankValue = Int()
     
+    var coinLbl = SKLabelNode()
+    
+    var flag = SKSpriteNode()
+    
     // make the characer jump. by moving himp up
     func jump() {
         self.Player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 20))
+    }
+    
+    func addFlag() {
+        let flagGroup : TMXObjectGroup = self.Map.groupNamed("EndObject")
+        
+        let flagObject = flagGroup.objectNamed("Flag") as NSDictionary
+        
+        let width = flagObject.objectForKey("width") as! String
+        let height = flagObject.objectForKey("height") as! String
+        
+        // get size of flag
+        let flagSize = CGSize(width: Int(width)!, height: Int(height)!)
+        
+        // create sprite object
+        flag = SKSpriteNode(imageNamed: "flag")
+        flag.size = flagSize
+        
+        // get position
+        let x = flagObject.objectForKey("x") as! Int
+        let y = flagObject.objectForKey("y") as! Int
+        
+        // set coin position
+        flag.position = CGPoint(x: x + Int(flagGroup.positionOffset.x) + Int(width)! / 2, y: y + Int(flagGroup.positionOffset.y) + Int(height)! / 2)
+        
+        // set physics
+        flag.physicsBody = SKPhysicsBody(rectangleOfSize: flagSize)
+        flag.physicsBody?.affectedByGravity = false
+        flag.physicsBody?.categoryBitMask = CollisionNames.Flag
+        flag.physicsBody?.collisionBitMask = CollisionNames.Player
+        flag.physicsBody?.contactTestBitMask = CollisionNames.Player
+        
+        self.addChild(flag)
     }
     
     override func didMoveToView(view: SKView) {
@@ -64,13 +101,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addChild(Player)
         
-        bankValue = 0
-        
         
         // Physics for ground
         // reference ground object in .tmx file
         let groundGroup : TMXObjectGroup = self.Map.groupNamed("GroundObjects")
         let coinGroup : TMXObjectGroup = self.Map.groupNamed("Coins")
+        
+        addFlag()
         
         // iterate over coins
         for i in 0..<coinGroup.objects.count {
