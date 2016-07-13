@@ -142,7 +142,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func setupLables() {
+        coinLbl.text = "Coins: \(bankValue)"
+        coinLbl.color = UIColor.yellowColor()
+        coinLbl.fontColor = UIColor.yellowColor()
+        coinLbl.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2 + self.frame.height / 3)
+        self.addChild(coinLbl)
+    }
+    
     func setupScene(scene: String) {
+        setupLables()
+        // save coins
+        let userDefaults = NSUserDefaults()
+        if userDefaults.integerForKey("bank") != 0 {
+            bankValue = userDefaults.integerForKey("bank")
+        } else {
+            bankValue = 0
+        }
+        
+        
         // remove all nodes
         for node in self.children {
             node.removeFromParent()
@@ -244,7 +262,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // don't go off left screen edge
         if Player.position.x >= self.frame.width / 2 {
             cam.position.x = Player.position.x
+            // update coin label position
+            coinLbl.position.x = Player.position.x
         }
+        
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -255,12 +276,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // remove the coin
             bodyB.node?.removeFromParent()
             bankValue += 1
-            print(bankValue)
+            coinLbl.text = "Coins: \(bankValue)"
         }
         else if bodyA.node?.physicsBody?.categoryBitMask == CollisionNames.Coin && bodyB.node?.physicsBody?.categoryBitMask == CollisionNames.Player {
             bodyA.node?.removeFromParent()
             bankValue += 1
-            print(bankValue)
+            coinLbl.text = "Coins: \(bankValue)"
+            
+            // set coins value
+            
         }
         
         // handle flag collisions
@@ -277,6 +301,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let userDefaults = NSUserDefaults()
         userDefaults.setInteger(levelNumber, forKey: "levelNumber")
         let currentLevel = "level\(levelNumber).tmx"
+        // save coins
+        userDefaults.setInteger(bankValue, forKey: "bank")
         setupScene(currentLevel)
     }
 }
