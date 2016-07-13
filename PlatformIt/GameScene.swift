@@ -17,7 +17,7 @@ struct CollisionNames {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    let Map = JSTileMap(named: "level1.tmx")
+    var Map = JSTileMap()
     var Player = SKSpriteNode()
     
     var movingLeft = Bool()
@@ -30,6 +30,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var coinLbl = SKLabelNode()
     
     var flag = SKSpriteNode()
+    
+    var levelNumber = Int()
     
     // make the characer jump. by moving himp up
     func jump() {
@@ -68,47 +70,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(flag)
     }
     
-    override func didMoveToView(view: SKView) {
-        Map.position = CGPoint(x: 0, y: 0)
-        self.addChild(Map)
-        
-        // add up gesture recognizer to scene. Call jump function
-        let gestureUp = UISwipeGestureRecognizer(target: self, action: #selector(jump))
-        gestureUp.direction = .Up
-        view.addGestureRecognizer(gestureUp)
-        
-        self.physicsWorld.contactDelegate = self
-        
-        self.camera = cam
-        self.addChild(cam)
-        // center camera on screen
-        cam.position = CGPoint(x: self.frame.width / 2 , y: self.frame.height / 2)
-        
-        Player = SKSpriteNode(imageNamed: "player")
-        Player.position = CGPoint(x: self.frame.width / 2, y: 50)
-        Player.size = CGSize(width: 30, height: 45)
-        
-        // SET physics
-        // size of physics body
-        Player.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: Player.size.width, height: Player.size.height))
-        // the phsyics body
-        Player.physicsBody?.categoryBitMask = CollisionNames.Player
-        // physics body colliding with
-        Player.physicsBody?.collisionBitMask = CollisionNames.Ground | CollisionNames.Coin
-        Player.physicsBody?.contactTestBitMask = CollisionNames.Ground | CollisionNames.Coin
-        Player.physicsBody?.affectedByGravity = true
-        Player.physicsBody?.allowsRotation = false
-        
-        self.addChild(Player)
-        
-        
-        // Physics for ground
-        // reference ground object in .tmx file
-        let groundGroup : TMXObjectGroup = self.Map.groupNamed("GroundObjects")
+    func addCoins() {
         let coinGroup : TMXObjectGroup = self.Map.groupNamed("Coins")
-        
-        addFlag()
-        
         // iterate over coins
         for i in 0..<coinGroup.objects.count {
             let coinObject = coinGroup.objects.objectAtIndex(i) as! NSDictionary
@@ -140,6 +103,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.addChild(coinSprite)
             
         }
+    }
+    
+    func addGround() {
+        // reference ground object in .tmx file
+        let groundGroup : TMXObjectGroup = self.Map.groupNamed("GroundObjects")
         
         // iterate over the ground objects
         for i in 0..<groundGroup.objects.count {
@@ -171,6 +139,65 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             groundSprite.physicsBody?.dynamic = false
             self.addChild(groundSprite)
             
+        }
+    }
+    
+    func setupScene(scene: String) {
+        // remove all nodes
+        for node in self.children {
+            node.removeFromParent()
+        }
+        
+        Map = JSTileMap(named: scene)
+        Map.position = CGPoint(x: 0, y: 0)
+        self.addChild(Map)
+        
+        // add up gesture recognizer to scene. Call jump function
+        let gestureUp = UISwipeGestureRecognizer(target: self, action: #selector(jump))
+        gestureUp.direction = .Up
+        view!.addGestureRecognizer(gestureUp)
+        
+        self.physicsWorld.contactDelegate = self
+        
+        self.camera = cam
+        self.addChild(cam)
+        // center camera on screen
+        cam.position = CGPoint(x: self.frame.width / 2 , y: self.frame.height / 2)
+        
+        Player = SKSpriteNode(imageNamed: "player")
+        Player.position = CGPoint(x: self.frame.width / 2, y: 50)
+        Player.size = CGSize(width: 30, height: 45)
+        
+        // SET physics
+        // size of physics body
+        Player.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: Player.size.width, height: Player.size.height))
+        // the phsyics body
+        Player.physicsBody?.categoryBitMask = CollisionNames.Player
+        // physics body colliding with
+        Player.physicsBody?.collisionBitMask = CollisionNames.Ground | CollisionNames.Coin
+        Player.physicsBody?.contactTestBitMask = CollisionNames.Ground | CollisionNames.Coin
+        Player.physicsBody?.affectedByGravity = true
+        Player.physicsBody?.allowsRotation = false
+        
+        self.addChild(Player)
+        
+        addGround()
+        addCoins()
+        addFlag()
+    }
+    
+    
+    override func didMoveToView(view: SKView) {
+        // get last level
+        let userDefaults = NSUserDefaults()
+        
+        if userDefaults.integerForKey("levelNumber") != 0 {
+            levelNumber = userDefaults.integerForKey("levelNumber") 
+            let currentLevel = "level\(levelNumber).tmx"
+            setupScene(currentLevel)
+        } else {
+            setupScene("level1.tmx")
+            levelNumber = 1
         }
     }
     
@@ -235,5 +262,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bankValue += 1
             print(bankValue)
         }
+        
+        // handle flag collisions
+        else if bodyA.node?.physicsBody?.categoryBitMask == CollisionNames.Player && bodyB.node?.physicsBody?.categoryBitMask == CollisionNames.Flag {
+            changeLevels()
+        }
+        else if bodyA.node?.physicsBody?.categoryBitMask == CollisionNames.Flag && bodyB.node?.physicsBody?.categoryBitMask == CollisionNames.Player {
+            changeLevels()
+        }
+    }
+    
+    func changeLevels() {
+        levelNumber += 1
+        let userDefaults = NSUserDefaults()
+        userDefaults.setInteger(levelNumber, forKey: "levelNumber")
+        let currentLevel = "level\(levelNumber).tmx"
+        setupScene(currentLevel)
     }
 }

@@ -14,6 +14,7 @@
 		B36F92AB1D2F283C005786E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B36F92A91D2F283C005786E5 /* Main.storyboard */; };
 		B36F92AD1D2F283C005786E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B36F92AC1D2F283C005786E5 /* Assets.xcassets */; };
 		B36F92B01D2F283C005786E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B36F92AE1D2F283C005786E5 /* LaunchScreen.storyboard */; };
+		B38533321D35BED00093B8B0 /* level2.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B38533311D35BED00093B8B0 /* level2.tmx */; };
 		B3C26DB41D2F29BC0043CF81 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C26DB11D2F29BC0043CF81 /* JSTileMap.m */; };
 		B3C26DB51D2F29BC0043CF81 /* LFCGzipUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C26DB31D2F29BC0043CF81 /* LFCGzipUtility.m */; };
 		B3C26DB91D2F2B090043CF81 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C26DB81D2F2B090043CF81 /* libz.tbd */; };
@@ -32,6 +33,7 @@
 		B36F92AC1D2F283C005786E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B36F92AF1D2F283C005786E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B36F92B11D2F283C005786E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B38533311D35BED00093B8B0 /* level2.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level2.tmx; sourceTree = "<group>"; };
 		B3C26DAF1D2F29BB0043CF81 /* PlatformIt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlatformIt-Bridging-Header.h"; sourceTree = "<group>"; };
 		B3C26DB01D2F29BC0043CF81 /* JSTileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTileMap.h; sourceTree = "<group>"; };
 		B3C26DB11D2F29BC0043CF81 /* JSTileMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTileMap.m; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		B36F92A01D2F283C005786E5 /* PlatformIt */ = {
 			isa = PBXGroup;
 			children = (
+				B38533311D35BED00093B8B0 /* level2.tmx */,
 				B3C26DC21D32C0F30043CF81 /* level1.tmx */,
 				B3C26DBC1D2F2E5F0043CF81 /* player.png */,
 				B3C26DBA1D2F2B510043CF81 /* kenney_16x16.png */,
@@ -156,6 +159,7 @@
 				B3C26DBD1D2F2E5F0043CF81 /* player.png in Resources */,
 				B36F92A41D2F283C005786E5 /* GameScene.sks in Resources */,
 				B3C26DBB1D2F2B510043CF81 /* kenney_16x16.png in Resources */,
+				B38533321D35BED00093B8B0 /* level2.tmx in Resources */,
 				B3C26DC31D32C0F30043CF81 /* level1.tmx in Resources */,
 				B36F92B01D2F283C005786E5 /* LaunchScreen.storyboard in Resources */,
 				B36F92AD1D2F283C005786E5 /* Assets.xcassets in Resources */,
