@@ -13,6 +13,8 @@ struct CollisionNames {
     static let Ground : UInt32 = 0x1 << 2
     static let Coin : UInt32 = 0x1 << 4
     static let Flag : UInt32 = 0x1 << 8
+    static let Fireball : UInt32 = 0x1 << 16
+    static let FlyingFireball :UInt32 = 0x1 << 20
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -142,6 +144,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func addFireball() {
+        let powerUpGroup : TMXObjectGroup = self.Map.groupNamed("PowerUps")
+        
+        for i in 0..<powerUpGroup.objects.count {
+            let fireballObject = powerUpGroup.objectNamed("Fire") as NSDictionary
+            
+            let width = fireballObject.objectForKey("width") as! String
+            let height = fireballObject.objectForKey("height") as! String
+            
+            // get size of flag
+            let fireballSize = CGSize(width: Int(width)!, height: Int(height)!)
+            
+            // create sprite object
+            let fireball = SKSpriteNode(imageNamed: "fireball")
+            fireball.size = fireballSize
+            
+            // get position
+            let x = fireballObject.objectForKey("x") as! Int
+            let y = fireballObject.objectForKey("y") as! Int
+            
+            // set coin position
+            fireball.position = CGPoint(x: x + Int(powerUpGroup.positionOffset.x) + Int(width)! / 2, y: y + Int(powerUpGroup.positionOffset.y) + Int(height)! / 2)
+            
+            // set physics
+            fireball.physicsBody = SKPhysicsBody(rectangleOfSize: fireballSize)
+            fireball.physicsBody?.affectedByGravity = false
+            fireball.physicsBody?.categoryBitMask = CollisionNames.Fireball
+            fireball.physicsBody?.collisionBitMask = CollisionNames.Player
+            fireball.physicsBody?.contactTestBitMask = CollisionNames.Player
+            
+            self.Map.addChild(fireball)
+        }
+
+    }
+    
     func setupLables() {
         coinLbl.text = "Coins: \(bankValue)"
         coinLbl.color = UIColor.yellowColor()
@@ -202,6 +239,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addGround()
         addCoins()
         addFlag()
+        addFireball()
     }
     
     
@@ -221,6 +259,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // detect touch direction
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        shootFireballs()
         for touch in touches {
             let location = touch.locationInNode(self)
             
@@ -294,6 +334,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         else if bodyA.node?.physicsBody?.categoryBitMask == CollisionNames.Flag && bodyB.node?.physicsBody?.categoryBitMask == CollisionNames.Player {
             changeLevels()
         }
+        
+        // handle fireball collision
+        else if bodyA.node?.physicsBody?.categoryBitMask == CollisionNames.Player && bodyB.node?.physicsBody?.categoryBitMask == CollisionNames.Fireball {
+            bodyB.node?.removeFromParent()
+        }
+        else if bodyA.node?.physicsBody?.categoryBitMask == CollisionNames.Fireball && bodyB.node?.physicsBody?.categoryBitMask == CollisionNames.Player {
+            bodyA.node?.removeFromParent()
+        }
     }
     
     func changeLevels() {
@@ -304,5 +352,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // save coins
         userDefaults.setInteger(bankValue, forKey: "bank")
         setupScene(currentLevel)
+    }
+    
+    func shootFireballs() {
+        let fireball = SKSpriteNode(imageNamed: "fireball")
+        fireball.size = CGSize(width: 15, height: 15)
+        fireball.position = Player.position
+        
+        fireball.physicsBody = SKPhysicsBody(circleOfRadius: fireball.size.width / 2)
+        fireball.physicsBody?.affectedByGravity = true
+        fireball.physicsBody?.friction = 0
+        // set the bounciness
+        fireball.physicsBody?.restitution = 0.8
+        fireball.physicsBody?.categoryBitMask = CollisionNames.FlyingFireball
+        // collide it with ground
+        fireball.physicsBody?.collisionBitMask = CollisionNames.Ground
+        fireball.physicsBody?.contactTestBitMask = CollisionNames.Ground
+        
+        self.addChild(fireball)
+        
+        // move it
+        fireball.physicsBody?.applyImpulse(CGVector(dx: 2, dy: 2))
     }
 }
